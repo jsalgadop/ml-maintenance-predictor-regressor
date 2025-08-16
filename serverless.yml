@@ -1,0 +1,20 @@
+org: utec2025
+service: api-expense-xgboost
+
+provider:
+  name: aws
+  runtime: python3.13
+  memorySize: 1024
+  timeout: 20
+  iam:
+    role: arn:aws:iam::471112641796:role/LabRole
+
+functions:
+  listar:
+    handler: expense-prediction.lambda_handler
+    events:
+      - http:
+          path: /predict/expense
+          method: post
+          cors: true
+          integration: lambda
